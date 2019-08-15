@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import web.server.demo.controller.Controller;
+import web.server.demo.data.TestData;
 import web.server.demo.repository.FileData;
 import web.server.demo.service.RepoService;
 
@@ -103,13 +104,12 @@ public class ControllerTest {
     }
 
     public void testRetrieveFileByPrefix() throws Exception {
-        List<String> fileNames = Arrays.asList("preserve.pdf", "premium.pdf", "press.pdf");
+        List<String> fileNames = TestData.dummyFileNamesForPrefix();
         Future<Collection<String>> fileNamesFuture = new AsyncResult<>(fileNames);
-        String prefix = "pre";
-        when(repoService.getByNameStartingWith(prefix)).thenReturn(fileNamesFuture);
+        when(repoService.getByNameStartingWith(PREFIX)).thenReturn(fileNamesFuture);
 
         mockMvc.perform(get(BASE_API_PATH + RETRIEVE_BY_PREFIX_PATH)
-                .param(PREFIX_PARAMETER, prefix))
+                .param(PREFIX_PARAMETER, PREFIX))
                 .andExpect(status().isOk())
                 .andExpect(content().string(fileNames.toString()));
 
@@ -117,7 +117,7 @@ public class ControllerTest {
     }
 
     public void testRetrieveAll() throws Exception {
-        List<String> fileNames = Arrays.asList("know.it", "live.it", "learn.it", "love.it");
+        List<String> fileNames = TestData.dummyFileNames();
         Future<Collection<String>> fileNamesFuture = new AsyncResult<>(fileNames);
         when(repoService.getAll()).thenReturn(fileNamesFuture);
 

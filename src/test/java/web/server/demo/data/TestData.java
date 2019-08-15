@@ -16,6 +16,7 @@ public class TestData {
     private static final String TEXT_PLAIN = "text/plain";
     public static final String FILE_CONTENT = "multipartFile";
     private static final String DUMMY_PARAMETER_NAME = "dummyParameterName";
+    public static final String PREFIX = "pre";
     public static final long ID = 0;
     public static final long[] IDS = {1, 2, 3};
 
@@ -49,10 +50,22 @@ public class TestData {
         return Arrays.asList("foo", "bar", "dummy");
     }
 
+    public static List<String> dummyFileNamesForPrefix() {
+        return Arrays.asList("preserve.pdf", "premium.pdf", "press.pdf");
+    }
+
     public static Collection<FileData> dummyFileDataCollection() {
         List<FileData> fileData = new ArrayList<>();
         for (int i = 0; i < dummyFileNames().size(); i++) {
             fileData.add(new FileData(dummyFileNames().get(i), dummyFileNames().get(i).getBytes()));
+        }
+        return fileData;
+    }
+
+    public static Collection<FileData> dummyFileDataCollectionForPrefix() {
+        List<FileData> fileData = new ArrayList<>();
+        for (int i = 0; i < dummyFileNamesForPrefix().size(); i++) {
+            fileData.add(new FileData(dummyFileNamesForPrefix().get(i), dummyFileNamesForPrefix().get(i).getBytes()));
         }
         return fileData;
     }

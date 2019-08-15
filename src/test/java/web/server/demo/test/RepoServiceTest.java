@@ -22,8 +22,6 @@ import static web.server.demo.data.TestData.*;
 
 public class RepoServiceTest {
 
-    private static final String PREFIX = "prefix";
-
     @Mock
     private FileDataRepository fileDataRepository;
 
@@ -38,7 +36,7 @@ public class RepoServiceTest {
         MockitoAnnotations.initMocks(this);
 
         when(fileDataRepository.findById(ID)).thenReturn(Optional.of(TestData.dummyFileData()));
-        when(fileDataRepository.findByNameStartingWith(PREFIX)).thenReturn(TestData.dummyFileDataCollection());
+        when(fileDataRepository.findByNameStartingWith(PREFIX)).thenReturn(TestData.dummyFileDataCollectionForPrefix());
         when(fileDataRepository.findAll()).thenReturn(TestData.dummyFileDataCollection());
     }
 
@@ -59,7 +57,7 @@ public class RepoServiceTest {
 
     @Test
     public void testGetFileNamesByPrefix() throws ExecutionException, InterruptedException {
-        assertEquals(repoService.getByNameStartingWith("prefix").get(), TestData.dummyFileNames());
+        assertEquals(repoService.getByNameStartingWith(PREFIX).get(), TestData.dummyFileNamesForPrefix());
     }
 
     @Test
