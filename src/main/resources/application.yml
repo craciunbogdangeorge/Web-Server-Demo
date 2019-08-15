@@ -1,0 +1,13 @@
+executor:
+  pool:
+    size:
+      core: 8
+      max: 32
+  queue:
+    capacity: 1024
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
